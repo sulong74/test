@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../jQuery.miny.js"></script>
+    <title>简易的热词搜索新版本</title>
+</head>
+
+<body>
+
+    <form action="" id="form">
+        <input type="text" name="ip" id="ipt">
+        <input type="submit" value="搜索" id="'btn">
+    </form>
+    <script>
+        $(function () {
+            $('#ipt').on('keyup', function (e) {
+                var str = $(this).val().trim();
+                // console.log(str);
+                console.log(e.keyCode);
+                if (e.keyCode === 13) {
+                    // $('#btn').click;
+                    $(this).val('');
+                }
+                if (str !== '') {
+                    $.ajax({
+                        url: 'http://suggest.taobao.com/sug?q=' + str,
+                        dataType: 'jsonp',
+                        success: function (res) {
+                            console.log(res);
+                        }
+                    })
+                }
+            })
+            // 阻止表单提交的默认行为
+            $('#form').on('submit', function (e) {
+                e.preventDefault();
+            })
+        })
+
+    </script>
+</body>
+
+</html>
